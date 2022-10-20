@@ -7,9 +7,8 @@
 // You can also remove this file if you'd prefer not to use a
 // service worker, and the Workbox build step will be skipped.
 
-import { clientsClaim } from 'workbox-core';
-import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
-
+import { clientsClaim } from "workbox-core";
+import { precacheAndRoute, createHandlerBoundToURL } from "workbox-precaching";
 
 clientsClaim();
 
@@ -19,94 +18,41 @@ clientsClaim();
 // even if you decide not to use precaching. See https://cra.link/PWA
 precacheAndRoute(self.__WB_MANIFEST);
 
-const CACHE_STATIC = 'static-v1';
-const CACHE_DYNAMIC = 'dynamic-v1';
-const CACHE_INMUTABLE = 'inmutable-v1';
+const CACHE_STATIC = "static-v1";
+const CACHE_DYNAMIC = "dynamic-v1";
+const CACHE_INMUTABLE = "inmutable-v1";
 
-const APP_SHELL = [
-    '/',
-    '/favicon.png',
-    '/index.html',
-    '/static/media/'
-];
+const APP_SHELL = ["/", "/favicon.png", "/index.html", "/static/js/"];
 
-const APP_SHELL_INMUTABLE = [
-];
+const APP_SHELL_INMUTABLE = [];
 
-self.addEventListener('install', event => {  
-
-  const promise1 = caches.open(CACHE_STATIC)
-  .then(cache => {
+self.addEventListener("install", (event) => {
+  const promise1 = caches.open(CACHE_STATIC).then((cache) => {
     return cache.addAll(APP_SHELL);
   });
 
-  const promise2 = caches.open(CACHE_INMUTABLE)
-  .then(cache => {
+  const promise2 = caches.open(CACHE_INMUTABLE).then((cache) => {
     return cache.addAll(APP_SHELL_INMUTABLE);
   });
 
   event.waitUntil(Promise.all([promise1, promise2]));
-
 });
 
-self.addEventListener('activate', event => {
-  
-    const respuesta = caches.keys().then(keys => {
-      keys.forEach(key => {
-        if(key !== CACHE_STATIC && key.includes('static')){
-          return caches.delete(key);
-        }
-        if(key !== CACHE_DYNAMIC && key.includes('dynamic')){
-          return caches.delete(key);
-        }
-      });
+self.addEventListener("activate", (event) => {
+  const respuesta = caches.keys().then((keys) => {
+    keys.forEach((key) => {
+      if (key !== CACHE_STATIC && key.includes("static")) {
+        return caches.delete(key);
+      }
+      if (key !== CACHE_DYNAMIC && key.includes("dynamic")) {
+        return caches.delete(key);
+      }
     });
-  
-    event.waitUntil(respuesta);
-  
   });
 
-        
+  event.waitUntil(respuesta);
+});
 
 
-// self.addEventListener("fetch", (e) => {
-
-//   console.log(e.request.url);
-//   //Url de
-//   let url = "url"
-//   let resp;
-
-//   if(e.request.url.indexOf(url) > -1){
-//     resp = caches.match(e.request)
-//       .then(cacheResp => {
-//         if(cacheResp) return cacheResp
-//         return fetch(url)
-//           .then(res => res.json())
-//           .then(body => {
-//             let resArray = [];
-//             for(let key in body){
-//               let json = body[key]
-//               resArray.push(json)
-//             }
-//             caches.open(CACHE_DYNAMIC)
-//               .then(cache => {
-//                 cache.put(e.request.url, new Response(resArray))
-//               })
-//             return new Response(resArray)
-//           })
-//       })
-//   } else {
-//     resp.caches.match(e.request.url)
-//       .then(cacheResp => {
-//         if(cacheResp) return cacheResp;
-//         return fetch(e.request)
-//           .then(fetchResp => {
-//             return updateDynamicCache(CACHE_DYNAMIC, e.request, fetchResp)
-//           })
-//       })
-//   }
-
-//   e.respondWith(resp)
-// });
 
 
