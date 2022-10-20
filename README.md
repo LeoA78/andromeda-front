@@ -1,23 +1,38 @@
-# Andromeda - Desafios Coder
+# Andromeda Tienda Online - Frontend - Ayi Academy
 
-Andromeda es una Tienda Online diseñada para los Desafios Coder.
+Andromeda es una Tienda Online diseñada para el desafío final de Ayi Academy.
 
-Este proyecto fué creado utilizando  [React](https://es.reactjs.org/).
+Este proyecto fué creado utilizando [React](https://es.reactjs.org/).
 
 ## Estilos
 
-Para los estilos utilicé CSS puro, cada componente tiene su propia hoja de estilos y estas se complementan en el proyecto general.
+Para los estilos utilicé CSS y la libreria de [Material UI](https://mui.com/).
 
 Las fuentes del NavBar fueron importadas de [Google Fonts](https://fonts.google.com/).
 
 El diseño implementado es Responsive lo cual permite que se adapte a todo tipo de pantalla.
 
-Los iconos aplicados corresponden a la libreria de [Material UI](https://mui.com/).
 
-## Navegación
+## Instalación
+```
+git clone https://github.com/LeoA78/andromeda-front.git
+```
 
-Para la navegación utilicé React-Router-Dom, tal y como vimos en clases.
+## Instalación de paquetes de NPM
 
-## ¿Api o FakeApi?
+```
+npm install
+```
 
-Si bien podría haber utilizado la [FakeStore Api](https://fakestoreapi.com/) para realizar el desafío, preferí crear mi propia lista de productos, ya que así puedo personalizarla por completo y agregar las caracteristicas que mejor se adapten al proyecto.
+## Iniciar en modo desarrollo
+
+```
+npm start
+```
+Nota: Es importante que la aplicación inicie en el puerto 3000. De no ser así no se enviarán correos de verificación de usuario ni de orden de compra.
+
+## Para generar la carpeta Build
+
+```
+npm run build
+```
